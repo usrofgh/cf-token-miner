@@ -1,4 +1,4 @@
-import sys
+import os
 import time
 import pytesseract
 
@@ -11,7 +11,7 @@ class FlowManager:
     @classmethod
     def run_flow(cls, browser_manager: BrowserManager) -> None:
         logger.info("\nRUN FLOW")
-        url = sys.argv[-1]
+        url = os.environ["TARGET_URL"]
         attempt = 0
         browser_manager.visit_page(url)
 
@@ -32,7 +32,7 @@ class FlowManager:
                 browser_manager.clean_console()
                 time.sleep(0.2)
                 token = browser_manager.copy_cf_token()
-                print(token)
+                logger.info(token)
                 break
             elif status in ["failure", "human"]:
                 browser_manager.reset_token()
