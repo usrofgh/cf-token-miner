@@ -21,8 +21,10 @@ class Config(BaseSettings):
     MODE: str
     LOG_LEVEL: str
     LOG_FILE: str
-
+    TESSERACT_FILE: str
     OPEN_CONSOLE_HOTKEY: tuple = ("ctrl", "shift", "j")
+    CLOSE_CONSOLE_HOTKEY: tuple = ("ctrl", "shift", "j")
+    INSERT_HOTKEY: tuple = ("ctrl", "v")
     CLEAN_CONSOLE: tuple = ("ctrl", "l")
     FOCUS_CONSOLE: tuple = ("ctrl", "q")
 
