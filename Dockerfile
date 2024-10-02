@@ -4,7 +4,8 @@ FROM ${PYTHON_IMAGE} AS library_installer
 WORKDIR /app/
 COPY poetry.lock pyproject.toml ./
 
-RUN pip install poetry && \
+RUN sudo apt-get update && sudo apt-get install tesseract-ocr && sudo apt-get install libtesseract-dev && \
+    pip install poetry && \
     poetry config virtualenvs.in-project true && \
     poetry install --without dev &&  \
     rm -rf /tmp/poetry_cache
