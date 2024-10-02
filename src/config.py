@@ -5,9 +5,10 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Config(BaseSettings):
     model_config = SettingsConfigDict(
+        # Use .env if doesn't exist .env.dev (in production for example)
         env_file=(
-            Path(__file__).parent.parent.joinpath(".env.prod"),
-            Path(__file__).parent.parent.joinpath(".env")
+            Path(__file__).parent.parent.joinpath(".env"),
+            Path(__file__).parent.parent.joinpath(".env.dev")
         )
     )
 
