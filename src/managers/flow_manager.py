@@ -1,8 +1,9 @@
 import os
 import time
+
 import pytesseract
 
-from src.logger import logger, config
+from src.logger import config, logger
 from src.managers.browser_manager import BrowserManager
 
 pytesseract.pytesseract.tesseract_cmd = config.TESSERACT_FILE

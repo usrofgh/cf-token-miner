@@ -13,6 +13,9 @@ pyperclip = "^1.9.0"
 pytesseract = "^0.3.13"
 
 
+[tool.poetry.group.dev.dependencies]
+isort = "^5.13.2"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

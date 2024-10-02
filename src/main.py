@@ -1,8 +1,11 @@
-import os, sys
+import os
+import sys
+
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
-from src.managers.flow_manager import FlowManager
 from src.managers.browser_manager import BrowserManager
+from src.managers.flow_manager import FlowManager
+
 
 def main():
     browser_manager = BrowserManager()

@@ -1,14 +1,14 @@
+import time
+import webbrowser
 from datetime import datetime, timedelta
 
 import pyautogui
-import webbrowser
-import time
 import pyperclip
+import pytesseract
 
 from src.config import config
 from src.logger import logger
 
-import pytesseract
 
 class BrowserManager:
 
