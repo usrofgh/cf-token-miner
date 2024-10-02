@@ -5,12 +5,13 @@ import pytesseract
 
 from src.logger import config, logger
 from src.managers.browser_manager import BrowserManager
+from src.managers.redis_manager import RedisManager
 
 pytesseract.pytesseract.tesseract_cmd = config.TESSERACT_FILE
 
 class FlowManager:
     @classmethod
-    def run_flow(cls, browser_manager: BrowserManager) -> None:
+    def run_flow(cls, browser_manager: BrowserManager, redis_manager: RedisManager) -> None:
         logger.info("\nRUN FLOW")
         url = os.environ["TARGET_URL"]
         attempt = 0
@@ -33,8 +34,12 @@ class FlowManager:
                 browser_manager.clean_console()
                 time.sleep(0.2)
                 token = browser_manager.copy_cf_token()
-                logger.info(token)
-                break
+                redis_manager.add(url, token)
+                logger.info("TOKEN IS GOTTEN")
+                time.sleep(10)
+                browser_manager.reset_token()
+                browser_manager.close_terminal()
+
             elif status in ["failure", "human"]:
                 browser_manager.reset_token()
                 browser_manager.close_terminal()
