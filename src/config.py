@@ -24,6 +24,7 @@ class Config(BaseSettings):
     LOG_LEVEL: str
     LOG_FILE: str
     TESSERACT_FILE: str
+    CHROME_FILE: str
 
     REDIS_HOST: str
     REDIS_PORT: int

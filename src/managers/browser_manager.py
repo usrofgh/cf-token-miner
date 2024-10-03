@@ -1,5 +1,5 @@
+import subprocess
 import time
-import webbrowser
 from datetime import datetime, timedelta
 
 import pyautogui
@@ -25,14 +25,13 @@ class BrowserManager:
             elif "success!" in text:
                 return "success"
             elif "human" in text:
-                return "need_click"
+                return "human"
             elif "failure" in text:
                 return "failure"
 
     @staticmethod
     def visit_page(url: str) -> None:
-        logger.info(f"VISIT {url}")
-        webbrowser.open(url)
+        subprocess.Popen([config.CHROME_FILE, "--no-sandbox", "--window-size=1920,1080", url])
 
     @staticmethod
     def open_console() -> None:

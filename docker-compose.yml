@@ -12,7 +12,14 @@ services:
       - .env
     environment:
       - TARGET_URL=${TARGET_URL}
-    command:
-      - poetry run python src/main.py
+    volumes:
+      - screenshots:/app/screenshots
+    command: >
+      sh -c "Xvfb :99 -ac & 
+      export DISPLAY=:99 && 
+      python -m src.main"
     depends_on:
       - redis
+
+volumes:
+  screenshots:

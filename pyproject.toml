@@ -12,6 +12,10 @@ pyautogui = "^0.9.54"
 pyperclip = "^1.9.0"
 pytesseract = "^0.3.13"
 redis = "^5.1.0"
+pillow = "^10.4.0"
+pyvirtualdisplay = "^3.0"
+python-xlib = "^0.33"
+easyprocess = "^1.1"
 
 
 [tool.poetry.group.dev.dependencies]
