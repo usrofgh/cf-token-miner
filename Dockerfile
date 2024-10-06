@@ -14,13 +14,14 @@ RUN pip install poetry && \
 FROM ${PYTHON_IMAGE}-slim AS runtime
 RUN apt-get update && \
     apt-get install -y  \
-    nano wget tesseract-ocr libtesseract-dev \
+    nano wget xclip tesseract-ocr libtesseract-dev \
     xvfb xserver-xephyr tigervnc-standalone-server x11-utils gnumeric python3-tk python3-dev gnome-screenshot && \
     wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
     apt-get install -y ./google-chrome-stable_current_amd64.deb
 ENV PATH=/app/.venv/bin:$PATH
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
+
 
 WORKDIR /app/
 COPY --from=library_installer /app/.venv ./.venv
