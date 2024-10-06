@@ -12,17 +12,6 @@ files = [
 ]
 
 [[package]]
-name = "easyprocess"
-version = "1.1"
-description = "Easy to use Python subprocess interface."
-optional = false
-python-versions = "*"
-files = [
-    {file = "EasyProcess-1.1-py3-none-any.whl", hash = "sha256:82eed523a0a5eb12a81fa4eacd9f342caeb3f900eb4b798740e6696ad07e63f9"},
-    {file = "EasyProcess-1.1.tar.gz", hash = "sha256:885898302a57aab948973e8b5d32a4229392b9fb2d986ab1d4ffd590e5ba90ec"},
-]
-
-[[package]]
 name = "isort"
 version = "5.13.2"
 description = "A Python utility / library to sort Python imports."
@@ -563,4 +552,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "668e16661a9d4c7b0a8adac12005a1911bdc0b6dfa40e44f7bf432bb72ac7ebc"
+content-hash = "e5f86c71a32d4dfd4c98c6e8c1fa715c55110fef0004bd234e75cc5232294ccb"
