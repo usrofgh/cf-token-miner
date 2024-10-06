@@ -38,15 +38,13 @@ class BrowserManager:
                 "--no-default-browser-check",
                 "--disable-cache",
                 "--no-sandbox",
-                f"--user-data-dir={config.BROWSER_PROFILE}",
+                # f"--user-data-dir={config.BROWSER_PROFILE}",
                 f"--load-extension={config.BROWSER_EXT}",
                 "--window-size=1920,1080",
+                url
 
             ]
         )
-        time.sleep(1)
-        pyautogui.write(url)
-        pyautogui.press("Enter")
 
     @classmethod
     def disable_auto_switching(cls) -> None:
