@@ -28,20 +28,33 @@ class Config(BaseSettings):
     TESSERACT_FILE: str
     CHROME_FILE: str
 
-    REDIS_HOST: str
-    REDIS_PORT: int
-
     CF_TOKEN_EXP_SECONDS: int
     CF_GEN_INTERVAL: int
 
     BROWSER_EXT: str
     BROWSER_PROFILE: str
 
+    REDIS_HOST: str
+    REDIS_PORT: int
+
+    PSQL_HOST: str
+    PSQL_PORT: int
+    PSQL_DB: str
+    PSQL_USER: str
+    PSQL_PASSWORD: str
+    PSQL_URI: str
+
+    SECRET_KEY: str
+    JWT_ALGORITHM: str
+    JWT_TTL_MIN: int
+
+class HotKeys:
     OPEN_CONSOLE_HOTKEY: tuple = ("ctrl", "shift", "j")
     INSERT_HOTKEY: tuple = ("ctrl", "v")
     CLEAN_CONSOLE: tuple = ("ctrl", "l")
     FOCUS_CONSOLE: tuple = ("ctrl", "`")
     ZOOM_IN: tuple = ("ctrl", "+")
     ZOOM_OUT: tuple = ("ctrl", "-")
+
 
 config = Config()

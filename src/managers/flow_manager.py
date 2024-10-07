@@ -4,14 +4,14 @@ import time
 import pytesseract
 
 from src.logger import config, logger
-from src.managers.browser_manager import BrowserManager
-from src.managers.redis_manager import RedisManager
+from src.managers.browser_manager import browser_manager
+from src.managers.redis_manager import redis_manager
 
 pytesseract.pytesseract.tesseract_cmd = config.TESSERACT_FILE
 
 class FlowManager:
     @classmethod
-    def run_flow(cls, browser_manager: BrowserManager, redis_manager: RedisManager) -> None:
+    def run_flow(cls) -> None:
         logger.info("\nRUN FLOW")
         url = os.environ["TARGET_URL"]
 

@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 import pyautogui
 import pytesseract
 
-from src.config import config
+from src.config import config, HotKeys
 from src.logger import logger
 from src.misc import paste_from_clipboard, copy_to_clipboard
 
@@ -59,23 +59,23 @@ class BrowserManager:
 
     @staticmethod
     def zoom_in() -> None:
-        pyautogui.hotkey(config.ZOOM_IN)
-        pyautogui.hotkey(config.ZOOM_IN)
+        pyautogui.hotkey(HotKeys.ZOOM_IN)
+        pyautogui.hotkey(HotKeys.ZOOM_IN)
 
     @staticmethod
     def open_console() -> None:
         logger.info(f"OPEN CONSOLE")
-        pyautogui.hotkey(config.OPEN_CONSOLE_HOTKEY)
+        pyautogui.hotkey(HotKeys.OPEN_CONSOLE_HOTKEY)
 
     @staticmethod
     def focus_console() -> None:
         logger.info("FOCUS CONSOLE")
-        pyautogui.hotkey(config.FOCUS_CONSOLE)
+        pyautogui.hotkey(HotKeys.FOCUS_CONSOLE)
 
     @staticmethod
     def allow_pasting() -> None:
         copy_to_clipboard("")
-        pyautogui.hotkey(config.INSERT_HOTKEY)
+        pyautogui.hotkey(HotKeys.INSERT_HOTKEY)
         pyautogui.write("allow pasting")
         time.sleep(0.2)
         pyautogui.press("Enter")
@@ -83,13 +83,13 @@ class BrowserManager:
     @staticmethod
     def clean_console() -> None:
         logger.info(f"CLEAN CONSOLE")
-        pyautogui.hotkey(config.CLEAN_CONSOLE)
+        pyautogui.hotkey(HotKeys.CLEAN_CONSOLE)
 
     @staticmethod
     def copy_cf_token() -> str:
         logger.info(f"PASTER COMMAND")
         copy_to_clipboard("copy(turnstile.getResponse())")
-        pyautogui.hotkey(config.INSERT_HOTKEY)
+        pyautogui.hotkey(HotKeys.INSERT_HOTKEY)
         pyautogui.press("Enter")
         time.sleep(0.5)
         logger.info("COPY TOKEN")
@@ -100,6 +100,8 @@ class BrowserManager:
     def gen_new_token() -> None:
         logger.info("GENERATE NEW TOKEN")
         copy_to_clipboard("turnstile.reset()")
-        pyautogui.hotkey(config.INSERT_HOTKEY)
+        pyautogui.hotkey(HotKeys.INSERT_HOTKEY)
         time.sleep(0.5)
         pyautogui.press("Enter")
+
+browser_manager = BrowserManager()

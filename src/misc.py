@@ -23,8 +23,8 @@ def paste_from_clipboard() -> str:
 def find_xy_by_word(word: str) -> tuple:
     screen = pyautogui.screenshot()
     data = pytesseract.image_to_data(screen, config='--psm 6', output_type=pytesseract.Output.DICT)
-    for i, word in enumerate(data["text"]):
-        if word.lower() == word.lower():
+    for i, w in enumerate(data["text"]):
+        if w.lower() == word.lower():
             x = data["left"][i]
             y = data["top"][i]
             return x, y

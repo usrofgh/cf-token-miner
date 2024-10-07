@@ -22,5 +22,12 @@ class RedisManager:
 
         ttl_list = [(key, self._redis_manager.ttl(key)) for key in keys]
         sorted_keys = sorted(ttl_list, key=lambda x: x[1])
-        oldest_token = self._redis_manager.get(sorted_keys[0][0])
+        if not sorted_keys:
+            return None
+        name = (sorted_keys[0][0])
+        print(name)
+        oldest_token = self._redis_manager.get(name)
+        self._redis_manager.delete(name)
         return oldest_token
+
+redis_manager = RedisManager()
