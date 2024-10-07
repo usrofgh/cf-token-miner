@@ -1,5 +1,6 @@
 from fastapi import APIRouter, status, Depends
 
+from src.back.auth import get_password_hash
 from src.back.dao.user_dao import UserDAO
 from src.back.dependencies import get_db
 from src.back.exceptions import EntityNotFoundException
@@ -18,6 +19,7 @@ user_router = APIRouter(
     status_code=status.HTTP_201_CREATED
 )
 def create_user(user: UserCreateSchema, db: Session = Depends(get_db)):
+    user.password = get_password_hash(user.password)
     user = UserDAO.create(db=db, obj_in=user)
     return user
 
