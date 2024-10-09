@@ -7,8 +7,11 @@ from src.back.auth import oauth2_scheme
 from src.back.dao.user_dao import UserDAO
 from src.back.database import SessionLocal
 from sqlalchemy.orm import Session
-from src.back.exceptions import IncorrectCredsException, CredsException, ForbiddenException
+
+from src.back.exceptions.auth_exceptions import CredsException, ForbiddenException
+from src.back.exceptions.user_exception import IncorrectCredsException
 from src.back.models.user_model import UserModel
+from src.back.services.user_service import UserService
 from src.logger import config
 from jwt.exceptions import InvalidTokenError
 
@@ -37,9 +40,7 @@ def get_current_user(
     except InvalidTokenError:
         raise IncorrectCredsException
 
-    user = UserDAO.read_by_email(db=db, email=email)
-    if user is None:
-        raise IncorrectCredsException
+    user = UserService.read_user_by_email(db=db, email=email)
     return user
 
 def get_current_admin_user(

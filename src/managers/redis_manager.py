@@ -30,4 +30,5 @@ class RedisManager:
         self._redis_manager.delete(name)
         return oldest_token
 
+
 redis_manager = RedisManager()

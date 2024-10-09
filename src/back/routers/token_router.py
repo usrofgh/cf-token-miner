@@ -1,5 +1,3 @@
-from cgitb import reset
-
 from fastapi import APIRouter, status
 
 from src.back.schemas.cf_token_schemas import TokenRead, TokenCreate

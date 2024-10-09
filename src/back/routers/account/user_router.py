@@ -1,39 +1,47 @@
 from fastapi import APIRouter, status, Depends
-
-from src.back.auth import get_password_hash
-from src.back.dao.user_dao import UserDAO
 from src.back.dependencies import get_db
-from src.back.exceptions import EntityNotFoundException
-from src.back.schemas.user_schemas import UserReadSchema, UserCreateSchema
+from src.back.schemas.user_schemas import UserReadSchema, UserCreateSchema, UserUpdateSchema, UserByEmail
 from sqlalchemy.orm import Session
 
+from src.back.services.user_service import UserService
+
 user_router = APIRouter(
-    prefix="/user",
-    tags=["User"]
+    prefix="/users",
+    tags=["Users"]
 )
 
 
 @user_router.post(
     path="/",
-    response_model=UserReadSchema,
     status_code=status.HTTP_201_CREATED
 )
 def create_user(user: UserCreateSchema, db: Session = Depends(get_db)):
-    user.password = get_password_hash(user.password)
-    user = UserDAO.create(db=db, obj_in=user)
-    return user
+    UserService.create_user(db=db, user=user)
 
 
 @user_router.get(
     path="/{id}",
     response_model=UserReadSchema,
+    status_code=status.HTTP_200_OK
+)
+def read_user(id: int, db: Session = Depends(get_db)):
+    return UserService.read_user_by_id(db=db, id=id)
+
+@user_router.post(
+    path="",
+    response_model=UserReadSchema,
     status_code=status.HTTP_200_OK,
 )
-def get_user(id: int, db: Session = Depends(get_db)):
-    user = UserDAO.read_by_id(db=db, id=id)
-    if not user:
-        raise EntityNotFoundException
-    return user
+def read_user_by_email(user: UserByEmail, db: Session = Depends(get_db)):
+    return UserService.read_user_by_email(db=db, email=user.email)
+
+
+@user_router.post(
+    path="/{id}",
+    status_code=status.HTTP_200_OK,
+)
+def update_user(user: UserUpdateSchema, db: Session = Depends(get_db)):
+    UserService.update_user(db=db, user=user)
 
 
 @user_router.delete(
@@ -41,4 +49,4 @@ def get_user(id: int, db: Session = Depends(get_db)):
     status_code=status.HTTP_204_NO_CONTENT
 )
 def delete_user(id: int, db: Session = Depends(get_db)):
-    UserDAO.delete(db=db, id=id)
+    UserService.delete_user(db=db, id=id)
