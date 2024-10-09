@@ -1,5 +1,5 @@
 from fastapi import APIRouter, status, Depends
-from src.back.dependencies import get_db
+from src.back.dependencies import get_db, get_current_admin_user, get_current_user
 from src.back.schemas.user_schemas import UserReadSchema, UserCreateSchema, UserUpdateSchema, UserByEmail
 from sqlalchemy.orm import Session
 
@@ -22,7 +22,8 @@ def create_user(user: UserCreateSchema, db: Session = Depends(get_db)):
 @user_router.get(
     path="/{id}",
     response_model=UserReadSchema,
-    status_code=status.HTTP_200_OK
+    status_code=status.HTTP_200_OK,
+    dependencies=[Depends(get_current_admin_user)]
 )
 def read_user(id: int, db: Session = Depends(get_db)):
     return UserService.read_user_by_id(db=db, id=id)
@@ -31,22 +32,14 @@ def read_user(id: int, db: Session = Depends(get_db)):
     path="",
     response_model=UserReadSchema,
     status_code=status.HTTP_200_OK,
+    dependencies=[Depends(get_current_admin_user)]
 )
 def read_user_by_email(user: UserByEmail, db: Session = Depends(get_db)):
     return UserService.read_user_by_email(db=db, email=user.email)
-
-
-@user_router.post(
-    path="/{id}",
-    status_code=status.HTTP_200_OK,
-)
-def update_user(user: UserUpdateSchema, db: Session = Depends(get_db)):
-    UserService.update_user(db=db, user=user)
-
 
 @user_router.delete(
     path="/{id}",
     status_code=status.HTTP_204_NO_CONTENT
 )
-def delete_user(id: int, db: Session = Depends(get_db)):
-    UserService.delete_user(db=db, id=id)
+def delete_user(db: Session = Depends(get_db), current_user = Depends(get_current_user)):
+    UserService.delete_user(db=db, id=current_user.id)
